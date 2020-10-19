@@ -26,4 +26,20 @@ public class SocialMetaTagService {
 		}
 		return tag;
 	}
+	
+	public SocialMetaTag getTwitterCardByUrl(String url) {
+		SocialMetaTag tag = new SocialMetaTag();
+		try {
+			
+			Document doc = Jsoup.connect(url).get();
+			tag.setTitle(doc.head().select("meta[name=twitter:title]").attr("content"));
+			tag.setSite(doc.head().select("meta[name=twitter:site]").attr("content"));
+			tag.setImagem(doc.head().select("meta[name=twitter:image]").attr("content"));
+			tag.setUrl(doc.head().select("meta[name=twitter:ur]").attr("content"));
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return tag;
+	}
 }
