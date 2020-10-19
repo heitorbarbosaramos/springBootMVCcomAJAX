@@ -88,9 +88,9 @@ public class Banner {
 	
 	public static void ambienteDesenvolvimento() {
 		System.out.println("=====================================================================================");
-		System.out.println(" #                 # +-+ +-+ +-+ +-+ +-+ +-+ +-+ +-+   +-+ +-+   +-+ +-+ +-+ +-+ +-+ +-+");        
-		System.out.println(" #=ooO=========Ooo=# |A| |M| |B| |I| |E| |N| |T| |E|   |D| |E|   |D| |E| |S| |E| |N| |V|");
-		System.out.println(" #      (- -)      # +-+ +-+ +-+ +-+ +-+ +-+ +-+ +-+   +-+ +-+   +-+ +-+ +-+ +-+ +-+ +-+");
+		System.out.println(" #                 # +-+ +-+ +-+ +-+ +-+ +-+ +-+ +-+   +-+ +-+   +-+ +-+ +-+");        
+		System.out.println(" #=ooO=========Ooo=# |A| |M| |B| |I| |E| |N| |T| |E|   |D| |E|   |D| |E| |V|");
+		System.out.println(" #      (- -)      # +-+ +-+ +-+ +-+ +-+ +-+ +-+ +-+   +-+ +-+   +-+ +-+ +-+");
 		System.out.println("  -------(_)------");
 		System.out.println("=====================================================================================");
 	}
