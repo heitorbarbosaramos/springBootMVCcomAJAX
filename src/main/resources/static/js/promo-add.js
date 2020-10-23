@@ -18,6 +18,14 @@ $("#form-add-promo").submit(function(evt){
 		beforeSend: function(){
 			$("#form-add-promo").hide();
 			$("#loader-form").addClass("loader").show();
+			$("#alert").removeClass("alert alert-danger");
+		   
+			$("span").closest('.error-span').remove();
+			
+			$("#categoria").removeClass("is-invalid");
+			$("#preco").removeClass("is-invalid");
+			$("#linkPromocao").removeClass("is-invalid");
+			$("#titulo").removeClass("is-invalid");
 		},
 		success:function(response){
 			$("#form-add-promo").each(function(){
@@ -26,11 +34,22 @@ $("#form-add-promo").submit(function(evt){
 			$("#linkImagem").attr("src","/images/promo-dark.png");
 			$("#site").text("");
 			
-			$("#alert").addClass("alert alert-success").text("Promocção cadastrada com sucesso.");
+			$("#alert").addClass("alert alert-success").text("Promoção cadastrada com sucesso.");
+		},
+		statusCode:{
+			422:function(xhr){
+				console.log('status errors: ' ,xhr.status);
+				var error = $.parseJSON(xhr.responseText);
+				$.each(error, function(key, value){
+					$("#" + key).addClass("is-invalid");
+					$("#error-" + key).addClass("invalid-feedback").append("<span class='error-span'>" + value + "</span>");
+				});
+				
+			}
 		},
 		error:function(xhr){
 			console.log("> error: ", xhr.responseText);
-			$("#alert").addClass("alert alert-danger").text("Promocção não foi cadastrada com sucesso.");
+			$("#alert").addClass("alert alert-danger").text("Promoção não foi cadastrada com sucesso.");
 		},
 		complete:function(){
 			$("#loader-form").fadeOut(800, function(){

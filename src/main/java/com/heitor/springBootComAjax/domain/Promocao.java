@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
@@ -22,22 +24,33 @@ public class Promocao implements Serializable, Comparable<Promocao>{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@NotBlank(message = "Um título é requerido")
 	@Column(nullable = false)
 	private String titulo;
+	
+	@NotBlank(message = "Um link é requerido")
 	@Column(nullable = false)
 	private String linkPromocao;
+	
 	@Column(nullable = false)
 	private String site;
+	
 	private String descricao;
 	@Column(nullable = false)
 	private String linkImagem;
+	
+	@NotNull(message = "Um valor é requerido")
 	@NumberFormat(style = Style.CURRENCY, pattern = "#,##0.00")
 	@Column(nullable = false)
 	private BigDecimal preco;
+	
 	private int likes;
 	@Column(nullable = false)
+	
 	private LocalDate dataCadastro;
 	
+	@NotNull(message = "Uma categoria é requirido")
 	@ManyToOne
 	@JoinColumn(name = "categoria_fk")
 	private Categoria categoria;
