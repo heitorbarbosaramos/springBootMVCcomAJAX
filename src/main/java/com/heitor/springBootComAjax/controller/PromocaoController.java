@@ -12,8 +12,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,9 +46,15 @@ public class PromocaoController {
 		return "promo-add";
 	}
 	
+	@GetMapping("/list")
+	public String listarOferta(ModelMap model) {
+		model.addAttribute("promocoes", repoPromo.findAll());
+		return "promo-list";
+	}
+	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public ResponseEntity<?> savePromocao(@Valid Promocao promocao, BindingResult result){
-		System.out.println(" - - - - " + result.hasErrors());
+		
 		if(result.hasErrors()) {
 			Map<String, String> errors = new HashMap<>();
 			for(FieldError error : result.getFieldErrors()) {
