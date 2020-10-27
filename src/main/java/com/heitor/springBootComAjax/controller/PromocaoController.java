@@ -20,6 +20,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -56,6 +57,13 @@ public class PromocaoController {
 		PageRequest pageRequest = PageRequest.of(0, 8, sort);
 		model.addAttribute("promocoes", repoPromo.findAll(pageRequest));
 		return "promo-list";
+	}
+	
+	@RequestMapping(value = "/like/{id}", method = RequestMethod.POST)
+	public ResponseEntity<?> adcionarLikes(@PathVariable(value = "id") Long id){
+		repoPromo.updateSomarLikes(id);
+		int likes = repoPromo.findLikesById(id);
+		return ResponseEntity.ok(likes);
 	}
 	
 	@GetMapping("/list/ajax")
