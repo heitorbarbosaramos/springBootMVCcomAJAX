@@ -22,11 +22,13 @@ $(window).scroll(function(){
 });
 
 function loadByScroolBar(pageNumber){
-	
+	var site = $("#autocomplete-input").val();
 	$.ajax({
 		method:"GET",
 		url:"/promocao/list/ajax",
-		data:{page:pageNumber},
+		data:{
+			page:pageNumber,
+			site: site},
 		beforeSend: function(){
 			$("#loader-img").show();
 		},
@@ -68,5 +70,49 @@ $(document).on("click","button[id*='likes-btn-']", function(){
 			alert("Ops, seu like não foi contabilizado - " + xhr.status + " - " + xhr.statusText);
 		}
 	
+	})
+})
+
+$("#autocomplete-input").autocomplete({
+	source: function(request, response){
+		$.ajax({
+			method:"GET",
+			url:"/promocao/site",
+			data:{
+				termo: request.term
+			},
+			success:function(result){
+				console.log(result)
+				response(result);
+			}
+		})
+	}
+});
+
+$("#autocomplete-submit").on("click", function(){
+	var site = $("#autocomplete-input").val();
+	console.log(">busca por site: ",site);
+	$.ajax({
+		method:"GET",
+		url:"/promocao/site/list",
+		data:{site},
+		beforeSend: function(){
+			pageNumber = 0;
+			$("#fim-btn").hide();
+			$(".row").fadeOut(400, function(){
+				$(this).empty();
+			})
+		},
+		success:function(response){
+			console.log(response);
+			$(".row").fadeIn(250, function(){
+				$(this).append(response);
+			});
+		},
+		error:function(xhr){
+			console.log("BUSCA DE SITE FALHOU: > ERROR " + xhr.statusText);
+			alert("Ops, busca de site falhou - " + xhr.status + " - " + xhr.statusText);
+		}
+
 	})
 })

@@ -37,20 +37,20 @@ public class PromocaoController {
 	private Logger LOG = LoggerFactory.getLogger(PromocaoController.class);
 	@Autowired
 	private PromocaoRepository repoPromo;
-	
+
 	@Autowired
 	private CategoriaRepository repoCategoria;
-	
+
 	@ModelAttribute("categorias")
-	public List<Categoria> getCategorias(){
+	public List<Categoria> getCategorias() {
 		return repoCategoria.findAll();
 	}
-	
+
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String abrirCadastro() {
 		return "promo-add";
 	}
-	
+
 	@GetMapping("/list")
 	public String listarOferta(ModelMap model) {
 		Sort sort = Sort.by(Direction.ASC, "dataCadastro");
@@ -58,36 +58,57 @@ public class PromocaoController {
 		model.addAttribute("promocoes", repoPromo.findAll(pageRequest));
 		return "promo-list";
 	}
-	
+
 	@RequestMapping(value = "/like/{id}", method = RequestMethod.POST)
-	public ResponseEntity<?> adcionarLikes(@PathVariable(value = "id") Long id){
+	public ResponseEntity<?> adcionarLikes(@PathVariable(value = "id") Long id) {
 		repoPromo.updateSomarLikes(id);
 		int likes = repoPromo.findLikesById(id);
 		return ResponseEntity.ok(likes);
 	}
-	
+
 	@GetMapping("/list/ajax")
-	public String listarCard(@RequestParam(name = "page", defaultValue = "1") int page, ModelMap model) {
-		Sort sort = Sort.by(Direction.ASC, "dataCadastro");
-		PageRequest pageRequest = PageRequest.of(page, 8, sort);
-		model.addAttribute("promocoes", repoPromo.findAll(pageRequest));
+	public String listarCard(@RequestParam(name = "page", defaultValue = "1") int page,
+			@RequestParam(name = "site", defaultValue = "") String site, ModelMap model) {
+
+		Sort sort = Sort.by(Sort.Direction.ASC, "dataCadastro");
+		PageRequest pageRequest = PageRequest.of(0, 8, sort);
+		
+		if (!site.isEmpty()) {
+			model.addAttribute("promocoes", repoPromo.findBySitePage(site, pageRequest));
+		} else {
+			model.addAttribute("promocoes", repoPromo.findAll(pageRequest));			
+		}
 		return "promo-card";
 	}
-	
+
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public ResponseEntity<?> savePromocao(@Valid Promocao promocao, BindingResult result){
-		
-		if(result.hasErrors()) {
+	public ResponseEntity<?> savePromocao(@Valid Promocao promocao, BindingResult result) {
+
+		if (result.hasErrors()) {
 			Map<String, String> errors = new HashMap<>();
-			for(FieldError error : result.getFieldErrors()) {
+			for (FieldError error : result.getFieldErrors()) {
 				errors.put(error.getField(), error.getDefaultMessage());
 			}
 			return ResponseEntity.unprocessableEntity().body(errors);
 		}
-		
+
 		promocao.setDataCadastro(LocalDate.now());
 		LOG.info("Promocao {} " + promocao);
 		repoPromo.save(promocao);
 		return ResponseEntity.ok().build();
+	}
+
+	@GetMapping("/site")
+	public ResponseEntity<List<String>> autocompleteByTermo(@RequestParam(value = "termo") String termo) {
+		List<String> sites = repoPromo.findBySiteTermo(termo);
+		return ResponseEntity.ok(sites);
+	}
+
+	@GetMapping("/site/list")
+	public String listarPorSite(@RequestParam(value = "site") String site, ModelMap map) {
+		Sort sort = Sort.by(Sort.Direction.ASC, "dataCadastro");
+		PageRequest pageRequest = PageRequest.of(0, 8, sort);
+		map.addAttribute("promocoes", repoPromo.findBySitePage(site, pageRequest));
+		return "promo-card";
 	}
 }
