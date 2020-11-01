@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -27,8 +28,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.heitor.springBootComAjax.domain.Categoria;
 import com.heitor.springBootComAjax.domain.Promocao;
+import com.heitor.springBootComAjax.dto.PromocaoDTO;
 import com.heitor.springBootComAjax.repository.CategoriaRepository;
 import com.heitor.springBootComAjax.repository.PromocaoRepository;
+import com.heitor.springBootComAjax.service.PromocaoDataTablesService;
 
 @Controller
 @RequestMapping(value = "/promocao")
@@ -41,6 +44,17 @@ public class PromocaoController {
 	@Autowired
 	private CategoriaRepository repoCategoria;
 
+	@GetMapping("/tabela")
+	public String showTable() {
+		return "promo-datatables";
+	}
+	
+	@GetMapping("/datatables/server")
+	public ResponseEntity<?> datatable(HttpServletRequest request){
+		Map<String, Object> data = new PromocaoDataTablesService().execute(repoPromo, request);
+		return ResponseEntity.ok(data);
+	}
+	
 	@ModelAttribute("categorias")
 	public List<Categoria> getCategorias() {
 		return repoCategoria.findAll();
@@ -110,5 +124,42 @@ public class PromocaoController {
 		PageRequest pageRequest = PageRequest.of(0, 8, sort);
 		map.addAttribute("promocoes", repoPromo.findBySitePage(site, pageRequest));
 		return "promo-card";
+	}
+	
+	@GetMapping("/delete/{id}")
+	public ResponseEntity<?> excluirPromocao(@PathVariable(value = "id") Long id){
+		repoPromo.deleteById(id);
+		return ResponseEntity.ok().build();
+	}
+	
+	@GetMapping("/edit/{id}")
+	public ResponseEntity<?> preEditarPromocao(@PathVariable(value = "id") Long id){
+		Promocao promo = repoPromo.findById(id).get();
+		return ResponseEntity.ok(promo);
+	}
+	
+	@GetMapping("/edit")
+	public ResponseEntity<?> editarPromocao(@Valid PromocaoDTO dto, BindingResult result){
+		
+		if (result.hasErrors()) {
+			Map<String, String> errors = new HashMap<>();
+			for (FieldError error : result.getFieldErrors()) {
+				errors.put(error.getField(), error.getDefaultMessage());
+			}
+			return ResponseEntity.unprocessableEntity().body(errors);
+		}
+
+		Promocao promo = repoPromo.findById(dto.getId()).get();
+		promo.setCategoria(dto.getCategoria());
+		promo.setDescricao(dto.getDescricao());
+		promo.setLinkImagem(dto.getLinkImagem());
+		promo.setPreco(dto.getPreco());
+		promo.setTitulo(dto.getTitulo());
+		
+		if(repoPromo.save(promo) == null) {
+			return ResponseEntity.unprocessableEntity().build();
+		};
+		
+		return ResponseEntity.ok().build();
 	}
 }

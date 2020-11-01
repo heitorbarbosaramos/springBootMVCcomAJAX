@@ -37,6 +37,7 @@ public class Promocao implements Serializable, Comparable<Promocao>{
 	private String site;
 	
 	private String descricao;
+	
 	@Column(nullable = false)
 	private String linkImagem;
 	

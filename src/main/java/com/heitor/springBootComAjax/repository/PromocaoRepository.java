@@ -1,5 +1,6 @@
 package com.heitor.springBootComAjax.repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -14,7 +15,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.heitor.springBootComAjax.domain.Promocao;
 
 public interface PromocaoRepository extends JpaRepository<Promocao, Long> {
-
+	
+	Page<Promocao> findByPreco(BigDecimal preco, Pageable pageRequest);
+	
+	@Query("select p from Promocao p where"
+			+ " p.site like %:search% or "
+			+ " p.titulo like %:search% or"
+			+ " p.categoria.titulo like %:search%")
+	Page<Promocao> findByTituloOrSiteOrCategoria(@RequestParam(name = "search") String search, Pageable pageRequest);
+	
 	@Transactional(readOnly = false)
 	@Modifying
 	@Query("update Promocao p set likes = p.likes + 1 where p.id = :id ")
