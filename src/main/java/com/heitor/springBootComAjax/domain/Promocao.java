@@ -30,7 +30,7 @@ public class Promocao implements Serializable, Comparable<Promocao>{
 	private String titulo;
 	
 	@NotBlank(message = "Um link é requerido")
-	@Column(nullable = false)
+	@Column(nullable = false, length = 500)
 	private String linkPromocao;
 	
 	@Column(nullable = false)

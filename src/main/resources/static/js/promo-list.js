@@ -127,7 +127,7 @@ $(document).ready(function(){
 
 function init(){
 	console.log("DWR init...");
-	
+	console.log("contador: " + totalOfertas);
 	dwr.engine.setActiveReverseAjax(true);
 	dwr.engine.setErrorHandler(error);
 	
@@ -146,3 +146,35 @@ function showButton(count){
 		.text("veja " + totalOfertas + " nova(s) oferta(s)!");
 	})
 }
+
+$("#btn-alert").on("click", function(){
+	
+	console.log(">busca por atualizações: ");
+	$.ajax({
+		method:"GET",
+		url:"/promocao/list/ajax",
+		data:{page : 0},
+		beforeSend: function(){
+			pageNumber = 0;
+			totalOfertas = 0;
+			$("#fim-btn").hide();
+			$("#loader-img").addClass("loader");
+			$("#btn-alert").attr("style", "display:none")
+			$(".row").fadeOut(400, function(){
+				$(this).empty();
+			})
+		},
+		success:function(response){
+			console.log(response);
+			$("#loader-img").removeClass("loader");
+			$(".row").fadeIn(250, function(){
+				$(this).append(response);
+			});
+		},
+		error:function(xhr){
+			console.log("BUSCA DE SITE FALHOU: > ERROR " + xhr.statusText);
+			alert("Ops, busca de site falhou - " + xhr.status + " - " + xhr.statusText);
+		}
+
+	})
+})
