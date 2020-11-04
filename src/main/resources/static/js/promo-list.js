@@ -121,13 +121,17 @@ $("#autocomplete-submit").on("click", function(){
 
 var totalOfertas = 0;
 
+$(document).ready(function(){
+	init();
+})
+
 function init(){
 	console.log("DWR init...");
 	
 	dwr.engine.setActiveReverseAjax(true);
 	dwr.engine.setErrorHandler(error);
 	
-	DWRAlertaPromocoes.int();
+	DWRAlertaPromocoes.init();
 }
 
 function error(exception){
@@ -136,6 +140,7 @@ function error(exception){
 
 function showButton(count){
 	totalOfertas = totalOfertas + count;
+	console.log("Total de novas ofertas: "+totalOfertas)
 	$("#btn-alert").show(function(){
 		$(this).attr("style", "display:block")
 		.text("veja " + totalOfertas + " nova(s) oferta(s)!");

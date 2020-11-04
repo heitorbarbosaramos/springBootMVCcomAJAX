@@ -2,7 +2,7 @@ package com.heitor.springBootComAjax.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -49,7 +49,7 @@ public class Promocao implements Serializable, Comparable<Promocao>{
 	private int likes;
 	@Column(nullable = false)
 	
-	private LocalDate dataCadastro;
+	private LocalDateTime dataCadastro;
 	
 	@NotNull(message = "Uma categoria é requirido")
 	@ManyToOne
@@ -104,10 +104,10 @@ public class Promocao implements Serializable, Comparable<Promocao>{
 	public void setLikes(int likes) {
 		this.likes = likes;
 	}
-	public LocalDate getDataCadastro() {
+	public LocalDateTime getDataCadastro() {
 		return dataCadastro;
 	}
-	public void setDataCadastro(LocalDate dataCadastro) {
+	public void setDataCadastro(LocalDateTime dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
 	public Categoria getCategoria() {

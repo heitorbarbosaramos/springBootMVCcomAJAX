@@ -1,14 +1,12 @@
 package com.heitor.springBootComAjax.dwr;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import org.directwebremoting.Browser;
-import org.directwebremoting.ScriptSession;
 import org.directwebremoting.ScriptSessions;
 import org.directwebremoting.WebContext;
 import org.directwebremoting.WebContextFactory;
@@ -83,7 +81,7 @@ public class DWRAlertaPromocoes {
 							+ "<" + time.getTime() + ">");
 					
 					if(count > 0) {
-						ScriptSessions.addFunctionCall("showButtin", count);
+						ScriptSessions.addFunctionCall("showButton", count);
 					}
 					
 				}

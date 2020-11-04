@@ -2,7 +2,7 @@ package com.heitor.springBootComAjax.config;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import org.slf4j.Logger;
@@ -64,7 +64,7 @@ public class ProfileTES {
 		promo1.setLinkImagem(tag1.getImagem());
 		promo1.setPreco(BigDecimal.valueOf(29.00));
 		promo1.setLikes(0);
-		promo1.setDataCadastro(LocalDate.now());
+		promo1.setDataCadastro(LocalDateTime.now());
 		promo1.setCategoria(repoCategoria.findById(2l).orElse(null));
 		
 		Promocao promo2 = new Promocao();
@@ -76,7 +76,7 @@ public class ProfileTES {
 		promo2.setLinkImagem(tag2.getImagem());
 		promo2.setPreco(BigDecimal.valueOf(29.00));
 		promo2.setLikes(0);
-		promo2.setDataCadastro(LocalDate.now());
+		promo2.setDataCadastro(LocalDateTime.now());
 		promo2.setCategoria(repoCategoria.findById(2l).orElse(null));
 		
 		Promocao promo3 = new Promocao();
@@ -88,7 +88,7 @@ public class ProfileTES {
 		promo3.setLinkImagem(tag3.getImagem());
 		promo3.setPreco(BigDecimal.valueOf(29.00));
 		promo3.setLikes(0);
-		promo3.setDataCadastro(LocalDate.now());
+		promo3.setDataCadastro(LocalDateTime.now());
 		promo3.setCategoria(repoCategoria.findById(2l).orElse(null));
 		
 		Promocao promo4 = new Promocao();
@@ -100,7 +100,7 @@ public class ProfileTES {
 		promo4.setLinkImagem(tag4.getImagem());
 		promo4.setPreco(BigDecimal.valueOf(29.00));
 		promo4.setLikes(0);
-		promo4.setDataCadastro(LocalDate.now());
+		promo4.setDataCadastro(LocalDateTime.now());
 		promo4.setCategoria(repoCategoria.findById(2l).orElse(null));
 		
 		Promocao promo5 = new Promocao();
@@ -112,7 +112,7 @@ public class ProfileTES {
 		promo5.setLinkImagem(tag5.getImagem());
 		promo5.setPreco(BigDecimal.valueOf(29.00));
 		promo5.setLikes(0);
-		promo5.setDataCadastro(LocalDate.now());
+		promo5.setDataCadastro(LocalDateTime.now());
 		promo5.setCategoria(repoCategoria.findById(2l).orElse(null));
 		
 		Promocao promo6 = new Promocao();
@@ -124,7 +124,7 @@ public class ProfileTES {
 		promo6.setLinkImagem(tag6.getImagem());
 		promo6.setPreco(BigDecimal.valueOf(29.00));
 		promo6.setLikes(0);
-		promo6.setDataCadastro(LocalDate.now());
+		promo6.setDataCadastro(LocalDateTime.now());
 		promo6.setCategoria(repoCategoria.findById(2l).orElse(null));
 		
 		Promocao promo7 = new Promocao();
@@ -136,7 +136,7 @@ public class ProfileTES {
 		promo7.setLinkImagem(tag7.getImagem());
 		promo7.setPreco(BigDecimal.valueOf(29.00));
 		promo7.setLikes(0);
-		promo7.setDataCadastro(LocalDate.now());
+		promo7.setDataCadastro(LocalDateTime.now());
 		promo7.setCategoria(repoCategoria.findById(2l).orElse(null));
 		
 		Promocao promo8 = new Promocao();
@@ -148,7 +148,7 @@ public class ProfileTES {
 		promo8.setLinkImagem(tag8.getImagem());
 		promo8.setPreco(BigDecimal.valueOf(29.00));
 		promo8.setLikes(0);
-		promo8.setDataCadastro(LocalDate.now());
+		promo8.setDataCadastro(LocalDateTime.now());
 		promo8.setCategoria(repoCategoria.findById(2l).orElse(null));
 		
 		Promocao promo9 = new Promocao();
@@ -160,7 +160,7 @@ public class ProfileTES {
 		promo9.setLinkImagem(tag2.getImagem());
 		promo9.setPreco(BigDecimal.valueOf(29.00));
 		promo9.setLikes(0);
-		promo9.setDataCadastro(LocalDate.now());
+		promo9.setDataCadastro(LocalDateTime.now());
 		promo9.setCategoria(repoCategoria.findById(2l).orElse(null));
 		
 		Promocao promo10 = new Promocao();
@@ -172,7 +172,7 @@ public class ProfileTES {
 		promo10.setLinkImagem(tag10.getImagem());
 		promo10.setPreco(BigDecimal.valueOf(29.00));
 		promo10.setLikes(0);
-		promo10.setDataCadastro(LocalDate.now());
+		promo10.setDataCadastro(LocalDateTime.now());
 		promo10.setCategoria(repoCategoria.findById(2l).orElse(null));
 		
 		Promocao promo11 = new Promocao();
@@ -184,7 +184,7 @@ public class ProfileTES {
 		promo11.setLinkImagem(tag11.getImagem());
 		promo11.setPreco(BigDecimal.valueOf(29.00));
 		promo11.setLikes(0);
-		promo11.setDataCadastro(LocalDate.now());
+		promo11.setDataCadastro(LocalDateTime.now());
 		promo11.setCategoria(repoCategoria.findById(2l).orElse(null));
 		
 		Promocao promo12 = new Promocao();
@@ -196,7 +196,7 @@ public class ProfileTES {
 		promo12.setLinkImagem(tag12.getImagem());
 		promo12.setPreco(BigDecimal.valueOf(29.00));
 		promo12.setLikes(0);
-		promo12.setDataCadastro(LocalDate.now());
+		promo12.setDataCadastro(LocalDateTime.now());
 		promo12.setCategoria(repoCategoria.findById(2l).orElse(null));
 		
 		repoPromocao.saveAll(Arrays.asList(promo1, promo2, promo3, promo4, promo5, promo6, promo7, promo8, promo9, promo10, promo11, promo12));

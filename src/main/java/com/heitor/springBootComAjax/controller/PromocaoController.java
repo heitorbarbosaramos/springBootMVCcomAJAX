@@ -1,6 +1,6 @@
 package com.heitor.springBootComAjax.controller;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -106,7 +106,7 @@ public class PromocaoController {
 			return ResponseEntity.unprocessableEntity().body(errors);
 		}
 
-		promocao.setDataCadastro(LocalDate.now());
+		promocao.setDataCadastro(LocalDateTime.now());
 		LOG.info("Promocao {} " + promocao);
 		repoPromo.save(promocao);
 		return ResponseEntity.ok().build();
