@@ -116,3 +116,28 @@ $("#autocomplete-submit").on("click", function(){
 
 	})
 })
+
+// AJAX REVERSO
+
+var totalOfertas = 0;
+
+function init(){
+	console.log("DWR init...");
+	
+	dwr.engine.setActiveReverseAjax(true);
+	dwr.engine.setErrorHandler(error);
+	
+	DWRAlertaPromocoes.int();
+}
+
+function error(exception){
+	console.log("DWR error: ", exception);
+}
+
+function showButton(count){
+	totalOfertas = totalOfertas + count;
+	$("#btn-alert").show(function(){
+		$(this).attr("style", "display:block")
+		.text("veja " + totalOfertas + " nova(s) oferta(s)!");
+	})
+}
